@@ -1,0 +1,119 @@
+experiment:
+  name: mci_diff
+  seed: 2026
+  deterministic: true
+  device: auto
+  precision: amp
+  output_dir: outputs/mci_diff
+  resume: true
+
+data:
+  manifest: data/manifest.csv
+  visit_months: [0, 6, 12, 18, 24, 36]
+  feature_dim: 512
+  allowed_datasets: [ADNI1, ADNI2, AIBL]
+  positive_label: pMCI
+  negative_label: sMCI
+  encoder:
+    backend: precomputed
+    checkpoint: null
+    python_factory: null
+    output_key: feature
+
+split:
+  protocol: adni_transfer
+  file: data/splits/adni.json
+  n_folds: 5
+  validation_fraction: 0.10
+  stratify: label
+
+normalization:
+  enabled: true
+  method: standard
+  epsilon: 1.0e-6
+  fit_on: train_only
+
+diffusion:
+  num_steps: 40
+  schedule: cosine
+  # beta_start/end are only used when schedule is linear.
+  beta_start: 1.0e-4
+  beta_end: 2.0e-2
+  prediction_type: epsilon
+  hidden_dim: 512
+  time_embedding_dim: 128
+  denoiser_layers: 6
+  attention_heads: 8
+  feedforward_multiplier: 4
+  dropout: 0.10
+  clip_x0: null
+
+progressive:
+  max_difficulty: 4
+  interpolation_task: true
+  interpolation_augmentation: true
+  extrapolation_task: true
+  extrapolation_augmentation: true
+  augmentation_mode: next_only
+  max_augmented_future_points: 1
+
+training:
+  num_workers: 4
+  pin_memory: true
+  gradient_clip_norm: 1.0
+  ema_decay: 0.999
+  checkpoint_every: 10
+  diffusion:
+    epochs_per_phase: 60
+    batch_size: 64
+    learning_rate: 2.0e-4
+    weight_decay: 1.0e-5
+    warmup_epochs: 5
+    patience: 15
+  classifier:
+    epochs: 100
+    batch_size: 32
+    learning_rate: 1.0e-4
+    weight_decay: 1.0e-4
+    warmup_epochs: 5
+    patience: 20
+
+sampling:
+  num_candidates: 20
+  candidate_batch_size: 20
+  scorer_factory: null
+  fallback: first
+  tie_break: first
+  save_all_candidates: false
+
+classifier:
+  architecture: transformer
+  hidden_dim: 256
+  num_layers: 2
+  attention_heads: 8
+  feedforward_multiplier: 4
+  dropout: 0.20
+  pooling: cls
+  class_weight: balanced
+
+evaluation:
+  metrics: [accuracy, sensitivity, specificity, auc]
+  threshold: 0.50
+  bootstrap_samples: 1000
+  bootstrap_confidence: 0.95
+  save_predictions: true
+
+ablation:
+  interpolation_task: true
+  interpolation_augmentation: true
+  extrapolation_task: true
+  extrapolation_augmentation: true
+
+matrix:
+  enabled: false
+  protocols: [adni_transfer, adni_5fold]
+  ablations: [full]
+  diffusion_steps: [40]
+  max_difficulties: [4]
+  candidate_sizes: [20]
+  denoiser_layers: [6]

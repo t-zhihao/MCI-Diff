@@ -1,0 +1,8 @@
+subject_id,dataset,month,image_path,label,feature_path,sex,age,mmse
+ADNI_0001,ADNI1,0,data/mni/ADNI_0001_m00.nii.gz,pMCI,data/features/ADNI_0001_m00.npy,M,72.4,27
+ADNI_0001,ADNI1,6,data/mni/ADNI_0001_m06.nii.gz,pMCI,data/features/ADNI_0001_m06.npy,M,72.9,26
+ADNI_0001,ADNI1,12,data/mni/ADNI_0001_m12.nii.gz,pMCI,data/features/ADNI_0001_m12.npy,M,73.4,25
+ADNI_0002,ADNI1,0,data/mni/ADNI_0002_m00.nii.gz,sMCI,data/features/ADNI_0002_m00.npy,F,75.1,28
+ADNI_0002,ADNI1,12,data/mni/ADNI_0002_m12.nii.gz,sMCI,data/features/ADNI_0002_m12.npy,F,76.1,28
+ADNI_1001,ADNI2,0,data/mni/ADNI_1001_m00.nii.gz,pMCI,data/features/ADNI_1001_m00.npy,F,70.2,27
+AIBL_0001,AIBL,0,data/mni/AIBL_0001_m00.nii.gz,sMCI,data/features/AIBL_0001_m00.npy,M,74.8,28

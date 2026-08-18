@@ -1,0 +1,15 @@
+_base_: default.yaml
+
+matrix:
+  enabled: true
+  protocols: [adni_transfer, adni_5fold]
+  ablations:
+    - full
+    - no_interpolation_task
+    - no_interpolation_augmentation
+    - no_extrapolation_task
+    - no_extrapolation_augmentation
+  diffusion_steps: [10, 20, 30, 40, 50, 60]
+  max_difficulties: [1, 2, 3, 4]
+  candidate_sizes: [5, 10, 15, 20, 25, 30]
+  denoiser_layers: [2, 4, 6, 8, 10]

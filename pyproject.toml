@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mci-diff"
+version = "1.0.0"
+description = "Official implementation of MCI-Diff for early MCI conversion prediction"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+  {name = "Zhihao Tang"},
+  {name = "Chaozhuo Li"},
+  {name = "Litian Zhang"},
+  {name = "Xi Zhang"},
+]
+keywords = ["structural-mri", "mild-cognitive-impairment", "diffusion", "longitudinal"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.24,<3",
+  "PyYAML>=6.0",
+  "scikit-learn>=1.2,<2",
+  "torch>=2.1",
+]
+
+[project.optional-dependencies]
+medical = ["nibabel>=5.1"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4"]
+all = [
+  "nibabel>=5.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/t-zhihao/MCI-Diff"
+Paper = "https://openaccess.thecvf.com/content/CVPR2026/html/Tang_Diffusion_with_a_Linguistic_Compass_Steering_the_Generation_of_Clinically_CVPR_2026_paper.html"
+
+[project.scripts]
+mci-diff = "mci_diff.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["src"]
