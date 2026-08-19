@@ -2,7 +2,7 @@
 
 Official implementation of **Diffusion with a Linguistic Compass: Steering the
 Generation of Clinically Plausible Future sMRI Representations for Early MCI
-Conversion Prediction** (CVPR 2026).
+Conversion Prediction** (CVPR 2026). Work in progress. This repository contains the current implementation of MCI-Diff. We are still checking the training pipeline, experiment settings, and documentation, so some parts may be updated before the final release.
 
 [Paper](https://openaccess.thecvf.com/content/CVPR2026/html/Tang_Diffusion_with_a_Linguistic_Compass_Steering_the_Generation_of_Clinically_CVPR_2026_paper.html) |
 [arXiv](https://arxiv.org/abs/2506.05428)
